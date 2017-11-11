@@ -80,7 +80,7 @@ coi2 = fs.readNextImage(); % the 5th %same as coi above
 % the following should display a movie of frames 1:5:51 with a rect drawn
 % around the face:
 drawFaceSequence(fs, 1, 5, 10, fs.gt_rect(1:5:51,:));
-return
+
 %%%%%%%%%%%%%%% 2.1
 
 % now implement the translation-only part of LKonCoImage.m

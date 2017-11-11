@@ -136,8 +136,8 @@ function [mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params
     %update:
     if(params.do_scale == 0)
       %------------------ fill in here for part 2.1
-      motNew(1) = motNew(1) + mot_update(1);
-      motNew(2) = motNew(1) + mot_update(2);
+      motNew(1) = motNew
+      motNew(2) = 
       %------------------ end fill in
     else 
       %---------------------- fill in here for part 2.2
