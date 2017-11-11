@@ -2,7 +2,7 @@
 
 % this file should not be run as a whole - cut 'n paste bits as you
 % work on them
-return;
+
 
 
 %%%%%%%%%%%%%%%
@@ -52,7 +52,7 @@ sum(abs(rect1_new - rect1))<1e-10
 % check if it can handle multiple rows:
 mots = uvsInv([mot;moti])  % show output of this
 
-
+return; 
 %%%%%%%%%%%%%%% 1.2
 
 % now edit rect/rect2uvs.m
