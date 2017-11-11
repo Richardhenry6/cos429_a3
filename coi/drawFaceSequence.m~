@@ -3,12 +3,10 @@ function drawFaceSequence(fs, from, step, number, rects)
 %
 % drawFaceSequence(fs, from, step, number, rects)
 %fill in here  
-
-  for i = from:number
-    co = fs.readImage(i * step + from);
-    imageco(co);
+  for i = from:step:number
+    co = imageco(fs.read(i));
     if(nargin>=5)
-      rectDraw(rects(i,:));
+      rectDraw(rex);
     end
     pause(0.2);
   end

@@ -50,9 +50,9 @@ rect1_new = uvsRWarp(moti, rect2) % should be same as rect1
 % check if it was correct:
 sum(abs(rect1_new - rect1))<1e-10
 % check if it can handle multiple rows:
-mots = uvsInv([mot;moti])  % show output of this
+mots = uvsInv([mot;moti]);  % show output of this
 
-return; 
+
 %%%%%%%%%%%%%%% 1.2
 
 % now edit rect/rect2uvs.m
@@ -64,11 +64,10 @@ sum(abs(mot-mot2))<1e-10
 % test multiple inputs:
 mots = rect2uvs([rect1;rect2], [rect2;rect1])
 
-
 %%%%%%%%%%%%%%% 1.3
 
 % loading and manipulating a face sequence
-fs = FaceSequence(seq_dir)
+fs = FaceSequence(seq_dir);
 coi_1 = fs.readImage(5); % same image as coi defined above
 fs.next=2; 
 fs.step=3;
@@ -81,8 +80,7 @@ coi2 = fs.readNextImage(); % the 5th %same as coi above
 % the following should display a movie of frames 1:5:51 with a rect drawn
 % around the face:
 drawFaceSequence(fs, 1, 5, 10, fs.gt_rect(1:5:51,:));
-
-
+return
 %%%%%%%%%%%%%%% 2.1
 
 % now implement the translation-only part of LKonCoImage.m
