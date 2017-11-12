@@ -28,16 +28,16 @@ figure(5); clf;
 imageco(coi);
 
 % gui for drawing a rectangle on the image 
-rect = rectGui()
+rect = rectGui();
 
 % let's define a rect: [xmin xmax ymin ymax]
-rect1 = [145.5228  241.2306   63.1484  158.1256] 
+rect1 = [145.5228  241.2306   63.1484  158.1256];
 
 % and a motion (with center of motion at center of rect1) : mot = [u v s x0 y0] 
-mot = [13 10.5 0.09 rectCenter(rect1)] 
+mot = [13 10.5 0.09 rectCenter(rect1)] ;
 
 % to warp rect1 according to mot, do
-rect2 = uvsRWarp(mot, rect1)
+rect2 = uvsRWarp(mot, rect1);
 
 
 %%%%%%%%%%%%%%% 1.1
@@ -45,10 +45,10 @@ rect2 = uvsRWarp(mot, rect1)
 % first, you should edit uvs/uvsInv.m
 
 % test it (include the output of these commands in your submission)
-moti = uvsInv(mot)
-rect1_new = uvsRWarp(moti, rect2) % should be same as rect1
+moti = uvsInv(mot);
+rect1_new = uvsRWarp(moti, rect2); % should be same as rect1
 % check if it was correct:
-sum(abs(rect1_new - rect1))<1e-10
+sum(abs(rect1_new - rect1))<1e-10;
 % check if it can handle multiple rows:
 mots = uvsInv([mot;moti]);  % show output of this
 
@@ -58,11 +58,11 @@ mots = uvsInv([mot;moti]);  % show output of this
 % now edit rect/rect2uvs.m
 
 % test it (include the output of these commands in your submission)
-mot2 = rect2uvs(rect1, rect2)
+mot2 = rect2uvs(rect1, rect2);
 % check it:
-sum(abs(mot-mot2))<1e-10
+sum(abs(mot-mot2))<1e-10;
 % test multiple inputs:
-mots = rect2uvs([rect1;rect2], [rect2;rect1])
+mots = rect2uvs([rect1;rect2], [rect2;rect1]);
 
 %%%%%%%%%%%%%%% 1.3
 
@@ -79,7 +79,7 @@ coi2 = fs.readNextImage(); % the 5th %same as coi above
 % note: for 'girl' the ground truth is defined only for frames 1,6,11,16...
 % the following should display a movie of frames 1:5:51 with a rect drawn
 % around the face:
-drawFaceSequence(fs, 1, 5, 10, fs.gt_rect(1:5:51,:));
+%drawFaceSequence(fs, 1, 5, 10, fs.gt_rect(1:5:51,:));
 
 %%%%%%%%%%%%%%% 2.1
 
@@ -88,8 +88,8 @@ drawFaceSequence(fs, 1, 5, 10, fs.gt_rect(1:5:51,:));
 % test it on frames 1 and 6 of the girl sequence
 fs.next=1;
 fs.step=5;
-prect = fs.gt_rect(fs.next, :)
-init_mot = [0 0 0 rectCenter(prect)]
+prect = fs.gt_rect(fs.next, :);
+init_mot = [0 0 0 rectCenter(prect)];
 prevcoi = fs.readNextImage();
 curcoi = fs.readNextImage();
 params = LKinitParams();
@@ -124,36 +124,35 @@ params.do_scale = 1;
 %%%%%%%%%%%%%%% 3
 
 % create pyramids for prevcoi and curcoi
-prevpyr = coPyramid(prevcoi,5)
-figure
-imageco(prevpyr(1))
-figure
-imageco(prevpyr(2))
-figure
-imageco(prevpyr(3))
-figure
-imageco(prevpyr(4))
-figure
-imageco(prevpyr(5))
-curpyr = coPyramid(curcoi,5)
+prevpyr = coPyramid(prevcoi,5);
+%figure
+%imageco(prevpyr(1))
+% figure
+% imageco(prevpyr(2))
+% figure
+% imageco(prevpyr(3))
+% figure
+% imageco(prevpyr(4))
+% figure
+% imageco(prevpyr(5))
+curpyr = coPyramid(curcoi,5);
 
 % now implement defineActiveLevels.m
 
 % test it - should return the first 4 levels
-defineActiveLevels(prect,prevpyr,curpyr,params)
+defineActiveLevels(prect,prevpyr,curpyr,params);
 
 % implement uvs/uvsChangeLevel.m
 
 % check it - we're going *up* the pyramid, so motion should be smaller
-mot2 = uvsChangeLevel(mot,1,2)
+mot2 = uvsChangeLevel(mot,1,2);
 % sanity check
-mot21 = uvsChangeLevel(mot2,2,1)
-sum(abs(mot21 - mot))<1e-10
-return;
+mot21 = uvsChangeLevel(mot2,2,1);
+sum(abs(mot21 - mot))<1e-10;
+
 % test LKonPyramid
 curpyr = coPyramid(fs.readImage(46));
-mot = LKonPyramid(prevpyr,curpyr,prect,init_mot,'show_fig',1)
-
+%mot = LKonPyramid(prevpyr,curpyr,prect,init_mot,'show_fig',1)
 
 %%%%%%%%%%%%%%% 4
 
@@ -163,9 +162,9 @@ mot = LKonPyramid(prevpyr,curpyr,prect,init_mot,'show_fig',1)
 fs.next = 1;
 fs.step = 1;
 rects = LKonSequence(fs);
-figure
-imageco(fs.readImage(10))
-rectDraw(rects(10,:))
-
+figure;
+imageco(fs.readImage(10));
+rectDraw(rects(10,:));
+return;
 % now go forth and test!
 

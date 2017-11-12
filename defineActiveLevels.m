@@ -10,8 +10,8 @@ function Ls = defineActiveLevels(prect, mep1, mep2, params)
   count = 1;
   minlev = 1;
   for i = 1:h-1
-      nrest = rectChangeLevel(prect,minlev,i+1)
-      whv = rectSize(nrest)
+      nrest = rectChangeLevel(prect,minlev,i+1);
+      whv = rectSize(nrest);
       
       if(whv(1)*whv(2) <= params.min_pix(1))
         break;

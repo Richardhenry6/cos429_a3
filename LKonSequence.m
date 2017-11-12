@@ -24,6 +24,7 @@ function [rects, dbg] = LKonSequence(fs, varargin)
   
   % init rects - first line is frame 0...length
   rects = repmat(seq_params.init_rect, seq_params.length+1, 1);
+  size(rects)
 
   % init mots - rows are 0->1, 1->2, ..., (length-1 -> length)
   mots = repmat(seq_params.init_mot, seq_params.length, 1);
@@ -41,10 +42,13 @@ function [rects, dbg] = LKonSequence(fs, varargin)
     % should be near the prect center 
     
     %%------------------- fill in here
-    [mot, fdbg] = LKonPyramid( ... );
-    mots( ... ) = ...
-    rects( ... ) = ... (hint: look in uvs/ for a suitable function)
-    init_mot = ...
+    [mot, fdbg] = LKonPyramid(prevPyr,currPyr, rects(i,:), init_mot, lk_params);
+    mots(i,:) = mot;
+    rects(i,:) = uvsRWarp(mot, rects(i,:)); %(hint: look in uvs/ for a suitable function)
+    c = rectCenter(rects(i,:));
+    init_mot = mot;
+    init_mot(4) = c(1);
+    init_mot(5) = c(2);
     %%---------------------- end fill in
     dbg{i}=fdbg;
     
