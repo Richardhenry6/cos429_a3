@@ -54,6 +54,7 @@ function wcoi = uvsWarp(mot, coi, destrect, crop_it)
     % now warp between the rectangles
     wim = resampleMei(coi, srect, idestrect);
   end
+
   if(crop_it && (isnan(wim(1,1)) || isnan(wim(end,end)))) %remove any additional nans
     imgood = ~isnan(wim);
     xi = any(imgood,1);

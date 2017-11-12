@@ -30,7 +30,7 @@ function [mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params
   exitcond = 'many_iter';
   spcutlast=0;
   for iter=1:max_iter
-    
+      mot
     %warp 'curent' (2nd) image according to motion
     wcoi = uvsBackwardWarp(mot, curcoi, coiImageRect(pcut1));
     
@@ -68,15 +68,15 @@ function [mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params
         % compute A=[dx1 dy1 ww1; dx2 dy2 ww2;...] 
         [x_pos,y_pos] = coiPixCoords(pcut);
         %---------------------- fill in here for part 2.2
-        %ww = ...
-        %A = ...
+        ww = dx.im .* (x_pos - mot(:,4)) + dy.im .* (y_pos - mot(:,5))
+        A = [dx.im(:) dy.im(:) ww(:)]
         %------------------ end fill in
       end
       
       % compute AtA and AtAinv
       %-------------------------- fill in here
       AtA = A' * A;
-      AtAinv = pinv(inv(Ata))
+      AtAinv = pinv(AtA)
       %-------------------------- end fill in
     end  %of AtA computation...
     
@@ -85,7 +85,7 @@ function [mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params
     
     % compute mot_update b solving Ax=b using x=inv(A'A)A'b
     %----------------------- fill in here
-    Atb = A'*It
+    Atb = A'*It(:)
     mot_update = AtAinv*Atb
     %----------------------- end fill in
     
@@ -137,13 +137,13 @@ function [mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params
     if(params.do_scale == 0)
       %------------------ fill in here for part 2.1
       motNew(1) = motNew(1) + mot_update(1);
-      motNew(2) = motNew(1) + mot_update(2);
+      motNew(2) = motNew(2) + mot_update(2);
       %------------------ end fill in
     else 
       %---------------------- fill in here for part 2.2
-      %motNew(1) = ...
-      %motNew(2) = ...
-      %motNew(3) = ...
+      motNew(1) = motNew(1) + mot_update(1) + motNew(3)*mot_update(1);
+      motNew(2) = motNew(2) + mot_update(2) + motNew(3)*mot_update(2);
+      motNew(3) = motNew(3) + mot_update(3) + motNew(3)*mot_update(3);
       %------------------ end fill in
     end
     mot = motNew;

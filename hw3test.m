@@ -100,7 +100,7 @@ params.show_fig = 1;
 % (indicating low error)
 [mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
 
-
+display("I hot it");
 %%%%%%%%%%%%%%% 2.2
 
 % now implement the translation-scale part of LKonCoImage.m
@@ -121,7 +121,7 @@ params.max_iter = 40;
 params.do_scale = 1;
 [mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
 
-
+return;
 %%%%%%%%%%%%%%% 3
 
 % create pyramids for prevcoi and curcoi
