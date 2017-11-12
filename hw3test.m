@@ -98,9 +98,9 @@ params.show_fig = 1;
 
 % you should see an animation with the error image becoming relatively blue
 % (indicating low error)
-[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
+%[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
 
-display("I hot it");
+%display("I hot it");
 %%%%%%%%%%%%%%% 2.2
 
 % now implement the translation-scale part of LKonCoImage.m
@@ -114,23 +114,26 @@ params.max_iter = 40;
 
 % notice in the visualization that single-scale LK does the best it can, but
 % there is still error around the outside of the face
-[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
+%[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
 
 % now run the (u,v,s) version - notice that the final error is lower, and
 % that eventually it converges to the right scale
 params.do_scale = 1;
-[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
+%[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
 
-return;
 %%%%%%%%%%%%%%% 3
 
 % create pyramids for prevcoi and curcoi
 prevpyr = coPyramid(prevcoi,5)
 figure
 imageco(prevpyr(1))
+figure
 imageco(prevpyr(2))
+figure
 imageco(prevpyr(3))
+figure
 imageco(prevpyr(4))
+figure
 imageco(prevpyr(5))
 curpyr = coPyramid(curcoi,5)
 
@@ -146,7 +149,7 @@ mot2 = uvsChangeLevel(mot,1,2)
 % sanity check
 mot21 = uvsChangeLevel(mot2,2,1)
 sum(abs(mot21 - mot))<1e-10
-
+return;
 % test LKonPyramid
 curpyr = coPyramid(fs.readImage(46));
 mot = LKonPyramid(prevpyr,curpyr,prect,init_mot,'show_fig',1)
