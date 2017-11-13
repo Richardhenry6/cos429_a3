@@ -24,7 +24,6 @@ function [rects, dbg] = LKonSequence(fs, varargin)
   
   % init rects - first line is frame 0...length
   rects = repmat(seq_params.init_rect, seq_params.length+1, 1);
-  size(rects)
 
   % init mots - rows are 0->1, 1->2, ..., (length-1 -> length)
   mots = repmat(seq_params.init_mot, seq_params.length, 1);
@@ -32,7 +31,8 @@ function [rects, dbg] = LKonSequence(fs, varargin)
   prevPyr = coPyramid(fs.readNextImage());
   dbg = cell(seq_params.length,1);
   init_mot = seq_params.init_mot;
-  
+  prevmo = mots(1,:);
+  prec = rects(1,:);
   for i=1:seq_params.length    
     currPyr = coPyramid(fs.readNextImage());
     
@@ -44,11 +44,12 @@ function [rects, dbg] = LKonSequence(fs, varargin)
     %%------------------- fill in here
     [mot, fdbg] = LKonPyramid(prevPyr,currPyr, rects(i,:), init_mot, lk_params);
     mots(i,:) = mot;
-    rects(i,:) = uvsRWarp(mot, rects(i,:)); %(hint: look in uvs/ for a suitable function)
-    c = rectCenter(rects(i,:));
-    init_mot = mot;
-    init_mot(4) = c(1);
-    init_mot(5) = c(2);
+    rects(i+1,:) = uvsRWarp(mot, rects(i,:)); %(hint: look in uvs/ for a suitable function)
+    c = rectCenter(rects(i+1,:));
+    newc = uvsCWarp(mot, c);
+    init_mot = prevmo;
+    init_mot(4) = newc(1);
+    init_mot(5) = newc(2);
     %%---------------------- end fill in
     dbg{i}=fdbg;
     

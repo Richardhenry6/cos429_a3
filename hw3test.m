@@ -76,10 +76,11 @@ coi2 = fs.readNextImage(); % the 5th %same as coi above
 
 % now implement coi/drawFaceSequence.m
 
-% note: for 'girl' the ground truth is defined only for frames 1,6,11,16...
+% note: for 'girl' the ground truth is defined only for frames
+% 1,6,11,16,21,26,31,36,41,46
 % the following should display a movie of frames 1:5:51 with a rect drawn
 % around the face:
-%drawFaceSequence(fs, 1, 5, 10, fs.gt_rect(1:5:51,:));
+drawFaceSequence(fs, 1, 5, 10, fs.gt_rect(1:5:51,:));
 
 %%%%%%%%%%%%%%% 2.1
 
@@ -98,7 +99,7 @@ params.show_fig = 1;
 
 % you should see an animation with the error image becoming relatively blue
 % (indicating low error)
-%[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
+[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
 
 %display("I hot it");
 %%%%%%%%%%%%%%% 2.2
@@ -140,7 +141,7 @@ curpyr = coPyramid(curcoi,5);
 % now implement defineActiveLevels.m
 
 % test it - should return the first 4 levels
-defineActiveLevels(prect,prevpyr,curpyr,params);
+%defineActiveLevels(prect,prevpyr,curpyr,params);
 
 % implement uvs/uvsChangeLevel.m
 
