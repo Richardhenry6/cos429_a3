@@ -48,6 +48,7 @@ function wcoi = uvsWarp(mot, coi, destrect, crop_it)
   if(any(rectSize(destrect)<1))
     wim = zeros(0,0,size(coi.im,3));
   else
+      
     %use my function
     % compute where idestrect must come from ...
     srect = uvsRBackwardWarp(mot, idestrect);

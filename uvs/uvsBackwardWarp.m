@@ -10,5 +10,6 @@ function wcoi = uvsBackwardWarp(mot, mei, destrect)
 % This function just calls:
 %   wcoi = uvsWarp(uvsInv(mot), mei, destrect);
   
+uvsInv(mot)
   wcoi = uvsWarp(uvsInv(mot), mei, destrect);
   

@@ -10,10 +10,11 @@ function [rects, dbg] = LKonSequence(fs, varargin)
 %   'init_mot', % initial motion between first 2 frames
 
   % number of frames to run on
-  seq_params.length = 20; 
+  seq_params.length = 54; 
   
   % initial rect in first frame
   seq_params.init_rect = fs.gt_rect(fs.next,:);
+  seq_params.init_rect
   [seq_params, varargin] = vl_argparse(seq_params, varargin); % update seq_params with opt inputs
   
   % initial motion from frame 0->1 
@@ -34,7 +35,8 @@ function [rects, dbg] = LKonSequence(fs, varargin)
   prevmo = mots(1,:);
   prec = rects(1,:);
   for i=1:seq_params.length    
-    currPyr = coPyramid(fs.readNextImage());
+      var = fs.readNextImage()
+    currPyr = coPyramid(var);
     
     % now call LK and fill in result rects and mots, make prediction for
     % next motion (making some assumption that the motion is smooth) 
@@ -55,7 +57,6 @@ function [rects, dbg] = LKonSequence(fs, varargin)
     
     mdisp('Tracking ', i, ' to image ', currPyr{1}.label, ' motion ', uvs2String(mot), ' rect ', rects(i+1,:));
     prevPyr = currPyr;
-    
   end
   
   

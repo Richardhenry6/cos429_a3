@@ -162,6 +162,8 @@ curpyr = coPyramid(fs.readImage(46));
 % see if we can track the first 10 frames
 fs.next = 1;
 fs.step = 1;
+disp("HI");
+fs.gt_rect(1,:)
 rects = LKonSequence(fs);
 figure;
 imageco(fs.readImage(10));
