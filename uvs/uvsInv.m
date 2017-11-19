@@ -15,7 +15,4 @@ X0 = 4;
 Y0 = 5; 
 g = zeros(size(mot));
 zero_motion = [ g(:,U) g(:,U) g(:,U) mot(:,X0) mot(:,Y0)]; 
-%newcenter = uvsCWarp(mot, [mot(:,X0),mot(:,Y0)]); 
-%motinv = uvsChangeCenter(mot, newcenter); 
-%params
 motinv = uvsMinus(zero_motion , mot);  

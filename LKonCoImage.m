@@ -30,6 +30,7 @@ function [mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params
   exitcond = 'many_iter';
   spcutlast=0;
   for iter=1:max_iter
+      
     %warp 'curent' (2nd) image according to motion
     wcoi = uvsBackwardWarp(mot, curcoi, coiImageRect(pcut1));
     
@@ -66,6 +67,7 @@ function [mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params
       else
         % compute A=[dx1 dy1 ww1; dx2 dy2 ww2;...] 
         [x_pos,y_pos] = coiPixCoords(pcut);
+
         %---------------------- fill in here for part 2.2
         ww = dx.im .* (x_pos - mot(:,4)) + dy.im .* (y_pos - mot(:,5));
         A = [dx.im(:) dy.im(:) ww(:)];

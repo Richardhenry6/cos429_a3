@@ -11,5 +11,6 @@ function wcoi = uvsBackwardWarp(mot, mei, destrect)
 %   wcoi = uvsWarp(uvsInv(mot), mei, destrect);
   
 uvsInv(mot)
+disp("SDF");
   wcoi = uvsWarp(uvsInv(mot), mei, destrect);
   

@@ -10,7 +10,7 @@ function [rects, dbg] = LKonSequence(fs, varargin)
 %   'init_mot', % initial motion between first 2 frames
 
   % number of frames to run on
-  seq_params.length = 54; 
+  seq_params.length = 500; 
   
   % initial rect in first frame
   seq_params.init_rect = fs.gt_rect(fs.next,:);
@@ -47,9 +47,9 @@ function [rects, dbg] = LKonSequence(fs, varargin)
     [mot, fdbg] = LKonPyramid(prevPyr,currPyr, rects(i,:), init_mot, lk_params);
     mots(i,:) = mot;
     rects(i+1,:) = uvsRWarp(mot, rects(i,:)); %(hint: look in uvs/ for a suitable function)
-    c = rectCenter(rects(i+1,:));
+    c = rectCenter(rects(i,:));
     newc = uvsCWarp(mot, c);
-    init_mot = prevmo;
+    init_mot = mots(i,:);
     init_mot(4) = newc(1);
     init_mot(5) = newc(2);
     %%---------------------- end fill in
@@ -57,6 +57,11 @@ function [rects, dbg] = LKonSequence(fs, varargin)
     
     mdisp('Tracking ', i, ' to image ', currPyr{1}.label, ' motion ', uvs2String(mot), ' rect ', rects(i+1,:));
     prevPyr = currPyr;
+    
+    imageco(fs.readImage(i));
+    rectDraw(rects(i,:));
+    pause(.01);
+
   end
   
   

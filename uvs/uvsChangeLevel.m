@@ -11,4 +11,8 @@ function nmot = uvsChangeLevel(mot, oldlev, newlev)
   X1=5;
   nmot = mot;
   factor = 2^(oldlev-newlev);
-  nmot(S) = factor*mot(3);
+  nmot(U) = factor*mot(U);
+  nmot(V) = factor*mot(V);
+  nmot(X0) = factor*mot(X0);
+  nmot(X1) = factor*mot(X1);
+  

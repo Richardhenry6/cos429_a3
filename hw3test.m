@@ -115,12 +115,12 @@ params.max_iter = 40;
 
 % notice in the visualization that single-scale LK does the best it can, but
 % there is still error around the outside of the face
-%[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
+[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
 
 % now run the (u,v,s) version - notice that the final error is lower, and
 % that eventually it converges to the right scale
 params.do_scale = 1;
-%[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
+[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
 
 %%%%%%%%%%%%%%% 3
 
@@ -136,12 +136,14 @@ prevpyr = coPyramid(prevcoi,5);
 % imageco(prevpyr(4))
 % figure
 % imageco(prevpyr(5))
+%55
+%50
 curpyr = coPyramid(curcoi,5);
 
 % now implement defineActiveLevels.m
 
 % test it - should return the first 4 levels
-%defineActiveLevels(prect,prevpyr,curpyr,params);
+defineActiveLevels(prect,prevpyr,curpyr,params);
 
 % implement uvs/uvsChangeLevel.m
 
@@ -149,11 +151,12 @@ curpyr = coPyramid(curcoi,5);
 mot2 = uvsChangeLevel(mot,1,2);
 % sanity check
 mot21 = uvsChangeLevel(mot2,2,1);
-sum(abs(mot21 - mot))<1e-10;
-
+mot21
+sum(abs(mot21 - mot))<1e-10
+pause(10);
 % test LKonPyramid
 curpyr = coPyramid(fs.readImage(46));
-%mot = LKonPyramid(prevpyr,curpyr,prect,init_mot,'show_fig',1)
+mot = LKonPyramid(prevpyr,curpyr,prect,init_mot,'show_fig',1)
 
 %%%%%%%%%%%%%%% 4
 
@@ -162,12 +165,31 @@ curpyr = coPyramid(fs.readImage(46));
 % see if we can track the first 10 frames
 fs.next = 1;
 fs.step = 1;
-disp("HI");
 fs.gt_rect(1,:)
-rects = LKonSequence(fs);
-figure;
-imageco(fs.readImage(10));
-rectDraw(rects(10,:));
-return;
+%rects = LKonSequence(fs);
+% figure;
+% imageco(fs.readImage(10));
+% irectDraw(rects(10,:));
+% pause(6)
+% imageco(fs.readImage(25));
+% irectDraw(rects(25,:));
+% pause(6)
+% imageco(fs.readImage(30));
+% irectDraw(rects(30,:));
+% pause(6)
+% imageco(fs.readImage(15));
+% irectDraw(rects(15,:));
+% pause(6)
+% imageco(fs.readImage(27));
+% irectDraw(rects(27,:));
+% pause(6)
+% imageco(fs.readImage(49));
+% irectDraw(rects(49,:));
+% pause(6)
+% imageco(fs.readImage(50));
+% irectDraw(rects(50,:));
+% pause(6)
+    %good 10 25 30
+    %bad 15 27 49 50
 % now go forth and test!
 
