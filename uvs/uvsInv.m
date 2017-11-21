@@ -14,5 +14,7 @@ S = 3;
 X0 = 4;
 Y0 = 5; 
 g = zeros(size(mot));
+
+%Calculate the inverse motion by using the hint above
 zero_motion = [ g(:,U) g(:,U) g(:,U) mot(:,X0) mot(:,Y0)]; 
 motinv = uvsMinus(zero_motion , mot);  

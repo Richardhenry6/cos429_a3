@@ -29,14 +29,14 @@ function [mot, dbg] = LKonPyramid(prevPyr, curPyr, prect, init_mot, varargin)
   
   assert(prevPyr{1}.level==curPyr{1}.level, ...
 	 'Pyramid base levels must be the same.');
- 
+
   %what levels of the pyramid should we run over
   Ls = defineActiveLevels(prect, prevPyr, curPyr, params);
   
   mot = init_mot;
   plev = prevPyr{1}.level;
   dbg.mot = init_mot;
-  
+ 
   %do tracking in each level
   for lev=Ls(end:-1:1)
     %change motion level

@@ -9,4 +9,3 @@ fs = FaceSequence(seq_dir);
 fs.next = 1;
 fs.step = 1;
 rects = LKonSequence(fs);
-figure;

@@ -30,14 +30,14 @@ function [mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params
   exitcond = 'many_iter';
   spcutlast=0;
   for iter=1:max_iter
-      
+       
     %warp 'curent' (2nd) image according to motion
     wcoi = uvsBackwardWarp(mot, curcoi, coiImageRect(pcut1));
-    
+   
     % make sure that the 2 images are the same by cutting pcut more
     % in case wcoi is smaller (because it is slightly out of the image)
     pcut = coiCut(pcut1, coiImageRect(wcoi));
-    
+   
     %compute A'A when needed:
     %we compute A'A on first iteration or when cut rectangle has changed 
     % (due to warp near the border of the image)

@@ -13,7 +13,7 @@ hw3start
 % path to your data dir
 data_dir = 'data/';
 
-seq_name = 'girl'; 
+seq_name = 'david'; 
 seq_dir = fullfile(data_dir, seq_name);
 
 % a few basic commands:
@@ -34,7 +34,7 @@ rect = rectGui();
 rect1 = [145.5228  241.2306   63.1484  158.1256];
 
 % and a motion (with center of motion at center of rect1) : mot = [u v s x0 y0] 
-mot = [13 10.5 0.09 rectCenter(rect1)] ;
+mot = [13 10.5 0.09 rectCenter(rect1)];
 
 % to warp rect1 according to mot, do
 rect2 = uvsRWarp(mot, rect1);
@@ -45,13 +45,12 @@ rect2 = uvsRWarp(mot, rect1);
 % first, you should edit uvs/uvsInv.m
 
 % test it (include the output of these commands in your submission)
-moti = uvsInv(mot);
-rect1_new = uvsRWarp(moti, rect2); % should be same as rect1
+moti = uvsInv(mot)
+rect1_new = uvsRWarp(moti, rect2) % should be same as rect1
 % check if it was correct:
-sum(abs(rect1_new - rect1))<1e-10;
+sum(abs(rect1_new - rect1))<1e-10
 % check if it can handle multiple rows:
-mots = uvsInv([mot;moti]);  % show output of this
-
+mots = uvsInv([mot;moti])  % show output of this
 
 %%%%%%%%%%%%%%% 1.2
 
@@ -60,7 +59,7 @@ mots = uvsInv([mot;moti]);  % show output of this
 % test it (include the output of these commands in your submission)
 mot2 = rect2uvs(rect1, rect2);
 % check it:
-sum(abs(mot-mot2))<1e-10;
+sum(abs(mot-mot2))<1e-10
 % test multiple inputs:
 mots = rect2uvs([rect1;rect2], [rect2;rect1]);
 
@@ -99,9 +98,9 @@ params.show_fig = 1;
 
 % you should see an animation with the error image becoming relatively blue
 % (indicating low error)
-[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
+[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params);
 
-%display("I hot it");
+
 %%%%%%%%%%%%%%% 2.2
 
 % now implement the translation-scale part of LKonCoImage.m
@@ -111,18 +110,18 @@ prect = fs.gt_rect(41,:);
 init_mot = [0 0 0 rectCenter(prect)];
 prevcoi = fs.readImage(41);
 curcoi=fs.readImage(43);
-params.max_iter = 40;
+params.max_iter = 41;
 
 % notice in the visualization that single-scale LK does the best it can, but
 % there is still error around the outside of the face
-[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
+%[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
 
 % now run the (u,v,s) version - notice that the final error is lower, and
 % that eventually it converges to the right scale
 params.do_scale = 1;
-[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
+%[mot, err, imot] = LKonCoImage(prevcoi, curcoi, prect, init_mot, params)
 
-%%%%%%%%%%%%%%% 3
+%%%%%%%%%%%%%%% 
 
 % create pyramids for prevcoi and curcoi
 prevpyr = coPyramid(prevcoi,5);
@@ -151,12 +150,11 @@ defineActiveLevels(prect,prevpyr,curpyr,params);
 mot2 = uvsChangeLevel(mot,1,2);
 % sanity check
 mot21 = uvsChangeLevel(mot2,2,1);
-mot21
 sum(abs(mot21 - mot))<1e-10
-pause(10);
+
 % test LKonPyramid
 curpyr = coPyramid(fs.readImage(46));
-mot = LKonPyramid(prevpyr,curpyr,prect,init_mot,'show_fig',1)
+mot = LKonPyramid(prevpyr,curpyr,prect,init_mot,'show_fig',1);
 
 %%%%%%%%%%%%%%% 4
 
@@ -165,30 +163,8 @@ mot = LKonPyramid(prevpyr,curpyr,prect,init_mot,'show_fig',1)
 % see if we can track the first 10 frames
 fs.next = 1;
 fs.step = 1;
-fs.gt_rect(1,:)
-%rects = LKonSequence(fs);
-% figure;
-% imageco(fs.readImage(10));
-% irectDraw(rects(10,:));
-% pause(6)
-% imageco(fs.readImage(25));
-% irectDraw(rects(25,:));
-% pause(6)
-% imageco(fs.readImage(30));
-% irectDraw(rects(30,:));
-% pause(6)
-% imageco(fs.readImage(15));
-% irectDraw(rects(15,:));
-% pause(6)
-% imageco(fs.readImage(27));
-% irectDraw(rects(27,:));
-% pause(6)
-% imageco(fs.readImage(49));
-% irectDraw(rects(49,:));
-% pause(6)
-% imageco(fs.readImage(50));
-% irectDraw(rects(50,:));
-% pause(6)
+rects = LKonSequence(fs);
+return;
     %good 10 25 30
     %bad 15 27 49 50
 % now go forth and test!
